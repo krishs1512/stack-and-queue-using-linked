@@ -1,0 +1,248 @@
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int customerID;
+    Node* next;
+};
+
+struct Queue
+{
+    Node* front = nullptr;
+    Node* rear = nullptr;
+
+    bool isEmpty()
+    {
+        return front == nullptr;
+    }
+
+    void enqueue()
+    {
+        int id;
+        cout << "Enter Customer ID to insert: ";
+        cin >> id;
+        Node* newnode = new Node();
+        newnode->customerID = id;
+        newnode->next = nullptr;
+
+        if (isEmpty())
+        {
+            front = newnode;
+            rear = newnode;
+        }
+        else
+        {
+            rear->next = newnode;
+            rear = newnode;
+        }
+        cout << "Customer " << id << " added to the queue." << endl;
+    }
+
+    void dequeue()
+    {
+        if (isEmpty())
+        {
+            cout << "Cannot dequeue. Queue is empty" << endl;
+        }
+        else
+        {
+            cout << "Serving and removing Customer ID: " << front->customerID << endl;
+            Node* temp = front;
+            front = front->next;
+            delete temp;
+            if (front == nullptr) // If the queue becomes empty after dequeue
+            {
+                rear = nullptr;
+            }
+        }
+    }
+
+    void display()
+    {
+        if (isEmpty())
+        {
+            cout << "Cannot display. Queue is empty" << endl;
+        }
+        else
+        {
+            cout << "Current queue of customers:" << endl;
+            Node* current = front;
+            while (current != nullptr)
+            {
+                cout << "Customer ID: " << current->customerID << endl;
+                current = current->next;
+            }
+        }
+    }
+};
+
+int main()
+{
+    Queue q;
+    int ch;
+    cout << "Bank Customer Service Queue Options\n1. Enqueue (Add Customer)\n2. Dequeue (Serve Customer)\n3. Display Queue\n4. Exit";
+    
+    do
+    {
+        cout << endl << "Enter choice: ";
+        cin >> ch;
+        switch (ch)
+        {
+            case 1:
+            {
+                q.enqueue();
+                break;
+            }
+            case 2:
+            {
+                q.dequeue();
+                break;
+            }
+            case 3:
+            {
+                q.display();
+                break;
+            }
+            case 4:
+            {
+                cout << "Exit. Thank You for using the Bank Customer Service Queue!" << endl;
+                break;
+            }
+            default:
+            {
+                cout << "Enter an appropriate choice" << endl;
+            }
+        }
+    } while (ch != 4);
+
+    return 0;
+}
+
+
+
+stack using linked list
+
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    string url;
+    Node* next;
+};
+
+struct Stack
+{
+    Node* top = nullptr;
+
+    void push()
+    {
+        string url;
+        cout << "Enter URL to visit: ";
+        cin >> url;
+        Node* newnode = new Node();
+        newnode->url = url;
+        newnode->next = top;
+        top = newnode;
+        cout << "Visited: " << url << endl;
+    }
+
+    bool isEmpty()
+    {
+        return top == nullptr;
+    }
+
+    void pop()
+    {
+        if (isEmpty())
+        {
+            cout << "No previous pages to go back to." << endl;
+        }
+        else
+        {
+            cout << "Going back from: " << top->url << endl;
+            Node* temp = top;
+            top = top->next;
+            delete temp;
+        }
+    }
+
+    void peek()
+    {
+        if (isEmpty())
+        {
+            cout << "No pages visited yet." << endl;
+        }
+        else
+        {
+            cout << "Current page: " << top->url << endl;
+        }
+    }
+
+    void display()
+    {
+        if (isEmpty())
+        {
+            cout << "No browsing history." << endl;
+        }
+        else
+        {
+            cout << "Browsing History:" << endl;
+            Node* current = top;
+            while (current != nullptr)
+            {
+                cout << current->url << endl;
+                current = current->next;
+            }
+        }
+    }
+};
+
+int main()
+{
+    Stack s;
+    int ch;
+    cout << "Browser Navigation Options\n1. Visit a new page (Push)\n2. Go back (Pop)\n3. View current page (Peek)\n4. Show browsing history (Display)\n5. Exit";
+
+    do
+    {
+        cout << endl << "Enter choice: ";
+        cin >> ch;
+        switch (ch)
+        {
+            case 1:
+            {
+                s.push();
+                break;
+            }
+            case 2:
+            {
+                s.pop();
+                break;
+            }
+            case 3:
+            {
+                s.peek();
+                break;
+            }
+            case 4:
+            {
+                s.display();
+                break;
+            }
+            case 5:
+            {
+                cout << "Exit. Thank you for using the browser!" << endl;
+                break;
+            }
+            default:
+            {
+                cout << "Enter appropriate choice" << endl;
+            }
+        }
+    } while (ch != 5);
+
+    return 0;
+}
+2
